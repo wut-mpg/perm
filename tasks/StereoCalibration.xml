@@ -7,15 +7,15 @@
 		</Author>
 		
 		<Description>
-			<brief>ecovi:t2/CalibrationOpenCV</brief>
-			<full>Task for calibration of the camera basing on the OpenCV exemplary image dataset</full>	
+			<brief>alibrate stereo camera</brief>
+			<full>Task for calibration of the camera basing on the OpenCV exemplary image dataset</full>
 		</Description>
 	</Reference>
 	
 	<!-- task definition -->
 	<Subtasks>
 		<Subtask name="Processing">
-			<Executor name="Exec1"  period="1">
+			<Executor name="Exec1"  period="0.2">
 				<Component name="Trigger" type="CvBasic:Trigger" priority="1">
 					<param name="triggers">NextImage</param>
 				</Component>
@@ -86,7 +86,7 @@
 		</Subtask>
 		
 		<Subtask name="Visualisation">
-			<Executor name="Exec2" period="0.2">
+			<Executor name="Exec2" period="0.1">
 				<Component name="Window" type="CvBasic:CvWindow" priority="1" bump="0">
 					<param name="count">4</param>
 					<param name="title">Left,Right,ULeft,URight</param>
@@ -98,7 +98,7 @@
 	
 	<!-- pipes connecting datastreams -->
 	<DataStreams>
-		<Source name="Trigger.out_NextImage">
+		<Source name="Trigger.out_trigger">
 			<sink>SourceL.in_next_image_trigger</sink>
 			<sink>SourceR.in_next_image_trigger</sink>
 		</Source>

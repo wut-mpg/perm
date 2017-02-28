@@ -1,0 +1,143 @@
+<Task>
+	<!-- reference task information -->
+	<Reference>
+		<Author>
+			<name>Maciej Stefańczyk, Tomasz Kornuta</name>
+			<link></link>
+		</Author>
+		
+		<Description>
+			<brief>ecovi:t2/CalibrationOpenCV</brief>
+			<full>Task for calibration of the camera basing on the OpenCV exemplary image dataset</full>	
+		</Description>
+	</Reference>
+	
+	<!-- task definition -->
+	<Subtasks>
+		<Subtask name="Processing">
+			<Executor name="Exec1"  period="1">
+				<Component name="Trigger" type="CvBasic:Trigger" priority="1">
+					<param name="triggers">NextImage</param>
+				</Component>
+				
+				<Component name="SourceL" type="CvBasic:Sequence" priority="2" bump="0">
+					<param name="sequence.pattern">left.*\.jpg</param>
+					<param name="sequence.directory">%[TASK_LOCATION]%/../data/calibration_opencv/</param>
+					<param name="mode.loop">0</param>
+					<param name="mode.auto_next_image">0</param>
+					<param name="mode.auto_publish_image">1</param>
+				</Component>
+								
+				<Component name="CameraInfoL" type="CvCoreTypes:CameraInfoProvider" priority="3">
+					<param name="width">640</param>
+					<param name="height">480</param>
+					<param name="camera_matrix">660 0 320 ; 0 660 240 ; 0 0 1</param>
+					<param name="dist_coeffs">0 0 0 0 0</param>
+				</Component>
+
+				<Component name="SourceR" type="CvBasic:Sequence" priority="4" bump="0">
+					<param name="sequence.pattern">right.*\.jpg</param>
+					<param name="sequence.directory">%[TASK_LOCATION]%/../data/calibration_opencv/</param>
+					<param name="mode.loop">0</param>
+					<param name="mode.auto_next_image">0</param>
+					<param name="mode.auto_publish_image">1</param>
+				</Component>
+								
+				<Component name="CameraInfoR" type="CvCoreTypes:CameraInfoProvider" priority="5">
+					<param name="width">640</param>
+					<param name="height">480</param>
+					<param name="camera_matrix">660 0 320 ; 0 660 240 ; 0 0 1</param>
+					<param name="dist_coeffs">0 0 0 0 0</param>
+				</Component>
+
+				
+				<Component name="Undistort" type="CvStereo:Undistort" priority="10" bump="0">
+				</Component>
+				
+				<Component name="ChessboardL" type="CvBasic:CvFindChessboardCorners" priority="20" bump="0">
+					<param name="chessboard.board_width">9</param>
+					<param name="chessboard.board_height">6</param>
+					<param name="chessboard.square_width">0.03</param>
+					<param name="chessboard.square_height">0.03</param>
+					<param name="flags.adaptive_threshold">0</param>
+					<param name="flags.fast_check">0</param>
+					<param name="flags.filter_quads">0</param>
+					<param name="flags.normalize_image">0</param>
+					<param name="scale.scale">0</param>
+				</Component>
+
+				<Component name="ChessboardR" type="CvBasic:CvFindChessboardCorners" priority="21" bump="0">
+					<param name="chessboard.board_width">9</param>
+					<param name="chessboard.board_height">6</param>
+					<param name="chessboard.square_width">0.03</param>
+					<param name="chessboard.square_height">0.03</param>
+					<param name="flags.adaptive_threshold">0</param>
+					<param name="flags.fast_check">0</param>
+					<param name="flags.filter_quads">0</param>
+					<param name="flags.normalize_image">0</param>
+					<param name="scale.scale">0</param>
+				</Component>
+				
+				<Component name="Calib" type="CvStereo:Calib" priority="5" bump="0">
+					<param name="continuous">0</param>
+				</Component>
+				
+			</Executor>
+		</Subtask>
+		
+		<Subtask name="Visualisation">
+			<Executor name="Exec2" period="0.2">
+				<Component name="Window" type="CvBasic:CvWindow" priority="1" bump="0">
+					<param name="count">4</param>
+					<param name="title">Left,Right,ULeft,URight</param>
+				</Component>
+			</Executor>
+		</Subtask>	
+	
+	</Subtasks>
+	
+	<!-- pipes connecting datastreams -->
+	<DataStreams>
+		<Source name="Trigger.out_NextImage">
+			<sink>SourceL.in_next_image_trigger</sink>
+			<sink>SourceR.in_next_image_trigger</sink>
+		</Source>
+		<Source name="SourceL.out_img">
+			<sink>Undistort.in_img_left</sink>		
+			<sink>ChessboardL.in_img</sink>
+			<sink>Window.in_img0</sink>		
+		</Source>
+		<Source name="CameraInfoL.out_camera_info">
+			<sink>Undistort.in_camera_info_left</sink>
+			<sink>Calib.in_camera_info</sink>
+		</Source>
+		<Source name="SourceR.out_img">
+			<sink>Undistort.in_img_right</sink>		
+			<sink>ChessboardR.in_img</sink>
+			<sink>Window.in_img1</sink>		
+		</Source>
+		<Source name="CameraInfoR.out_camera_info">
+			<sink>Undistort.in_camera_info_right</sink>
+		</Source>
+		<Source name="ChessboardL.out_chessboard">
+			<sink>Window.in_draw0</sink>
+			<sink>Calib.in_object3d_left</sink>		
+		</Source>
+		<Source name="Calib.out_camera_info_left">
+			<sink>CameraInfoL.in_camera_info</sink>
+		</Source>
+		<Source name="Undistort.out_img_left">
+			<sink>Window.in_img2</sink>		
+		</Source>
+		<Source name="ChessboardR.out_chessboard">
+			<sink>Window.in_draw1</sink>
+			<sink>Calib.in_object3d_right</sink>		
+		</Source>
+		<Source name="Calib.out_camera_info_right">
+			<sink>CameraInfoR.in_camera_info</sink>
+		</Source>
+		<Source name="Undistort.out_img_right">
+			<sink>Window.in_img3</sink>		
+		</Source>
+	</DataStreams>
+</Task>

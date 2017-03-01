@@ -4,14 +4,21 @@ title: Home
 ---
 
 <div class="posts">
-  {% for post in site.categories.metalab %}
-  <article class="post">
-    <h1 class="post-title">
+  {% assign labs = site.categories.metalab | sort: "lab"  %}
+  {% for post in labs %}
+  <article class="post" style="margin-bottom: 1em">
+    {% if post.ready %}
+    <h2 class="post-title">
       <a href="{{site.baseurl}}{{post.url}}">L{{post.lab}}: {{ post.title }}</a>
-      
-    </h1>
+    </h2>
+    {% else %}
+    <h2 class="post-title" style="color: #9a9a9a">
+      L{{post.lab}}: {{ post.title }}
+    </h2>
+    {% endif %}
 
     <time datetime="{{ post.date | date_to_xmlschema }}" class="post-date">{{ post.date | date_to_string }}</time>
+    {% comment %}
     <dl>
     {% assign tasks = site.categories.lab | sort: "task"  %}
     {% for task in tasks %}
@@ -21,7 +28,7 @@ title: Home
       {% endif %}
     {% endfor %}
     </dl>
-    {% comment %}{{ post.content }}{% endcomment %}
+    {% endcomment %}
   </article>
   {% endfor %}
 </div>

@@ -4,8 +4,8 @@ permalink:           /:year/:month/:day/:title/
 # Setup
 title:               PERM
 tagline:             Percepcja Maszyn
-url:                 
-baseurl:             ""
+url:                 "https://studia.elka.pw.edu.pl/file/17L/PERM.A/priv/lab/"
+baseurl:             "/file/17L/PERM.A/priv/lab"
 future:              true
 
 # Assets

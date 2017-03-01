@@ -1,6 +1,6 @@
 ---
 layout: task
-title: Kalibracja kamery
+title: Kalibracja kamery (1)
 category: lab
 lab: 1
 task: 2

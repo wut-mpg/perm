@@ -1,12 +1,12 @@
 # Permalinks
-permalink:           pretty
+permalink:           /:year/:month/:day/:title/
 
 # Setup
-title:               Poole
-tagline:             The Jekyll Butler
-url:                 http://getpoole.com
-paginate:            1
+title:               PERM
+tagline:             Percepcja Maszyn
+url:                 
 baseurl:             ""
+future:              true
 
 # Assets
 #
@@ -28,5 +28,4 @@ github:
 
 # Gems
 gems:
-  - jekyll-paginate
   - jekyll-gist

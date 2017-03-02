@@ -39,11 +39,10 @@
 					<param name="type">BGR2GRAY</param>
 				</Component>
 				
-				<Component name="Chessboard" type="CvBasic:CvFindChessboardCorners" priority="5" bump="0">
-					<param name="chessboard.board_width">5</param>
-					<param name="chessboard.board_height">6</param>
-					<param name="chessboard.square_width">0.02</param>
-					<param name="chessboard.square_height">0.02</param>
+				<Component name="Pattern" type="CvBasic:CvFindCirclesGrid" priority="5" bump="0">
+					<param name="grid.width">3</param>
+					<param name="grid.height">5</param>
+					<param name="grid.size">0.06</param>
 				</Component>
 				
 				<Component name="Calib" type="CvBasic:Calib" priority="6" bump="1">
@@ -80,9 +79,9 @@
 		</Source>
 
 		<Source name="ColorConv.out_img">
-			<sink>Chessboard.in_img</sink>
+			<sink>Pattern.in_img</sink>
 		</Source>
-		<Source name="Chessboard.out_chessboard">
+		<Source name="Pattern.out_pattern">
 			<sink>Window.in_draw0</sink>
 			<sink>Calib.in_object3d</sink>		
 		</Source>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<Task>
+	<!-- reference task information -->
+	<Reference>
+		<Author>
+			<name>Dawid Kaczmarek</name>
+			<link></link>
+		</Author>
+	
+		<Description>
+			<brief>Displays a sequence of stereo (RGB and depth XYZ) images</brief>
+			<full>Displays a sequence of stereo (RGB and depth XYZ) images generated from pairs of left-right (LR) camera images. Enables writing of RGB-XYZ pairs to files (in png and yml format respectivelly).</full>
+		</Description>
+	</Reference>
+
+	<!-- task definition -->
+	<Subtasks>
+		<Subtask name="Processing">
+			<Executor name="Exec1" period="0.1">
+				<Component name="NextImageTrigger" type="CvBasic:Trigger" priority="1" bump="0">
+				</Component>
+				<Component name="SourceL" type="CvBasic:Sequence" priority="2" bump="0">
+					<param name="sequence.directory">%[TASK_LOCATION]%/../data/calibration_opencv/</param>
+					<param name="sequence.pattern">left.*\.jpg</param>
+					<param name="mode.loop">1</param>
+					<param name="mode.auto_next_image">0</param>
+				</Component>
+				<Component name="SourceR" type="CvBasic:Sequence" priority="3" bump="0">
+					<param name="sequence.directory">%[TASK_LOCATION]%/../data/calibration_opencv/</param>
+					<param name="sequence.pattern">right.*\.jpg</param>
+					<param name="mode.loop">1</param>
+					<param name="mode.auto_next_image">0</param>
+				</Component>
+				<Component name="CameraInfoL" type="CvCoreTypes:CameraInfoProvider" priority="4" bump="0">
+					<param name="data_file">/tmp/left.yml</param>
+				</Component>
+				<Component name="CameraInfoR" type="CvCoreTypes:CameraInfoProvider" priority="5" bump="0">
+					<param name="data_file">/tmp/right.yml</param>
+				</Component>
+				<Component name="Undistort" type="CvStereo:Undistort" priority="6" bump="0">
+				</Component>
+				<Component name="StereoEstimator" type="CvStereo:StereoEstimator" priority="10" bump="0">
+					<param name="minDisparity">10</param>
+					<param name="numberOfDisparities">64</param>
+					<param name="perform_rectification">0</param>
+					<param name="SADWindowSize">3</param>
+					<param name="preFilterCap">1</param>
+					<param name="speckleRange">1</param>
+					<param name="speckleWindowSize">1</param>
+					<param name="tectureThreshold">1</param>
+					<param name="uniquenessRatio">1</param>
+				</Component>
+				<Component name="DepthRainbow" type="CvStereo:DepthRainbow" priority="20" bump="0">
+					<param name="min_range">10</param>
+					<param name="max_range">128</param>
+				</Component>
+			</Executor>
+			
+		</Subtask>	
+
+		<Subtask name="Display">
+			<Executor name="Exec2" period="0.5">
+				<Component name="Window" type="CvBasic:CvWindow" priority="1" bump="0">
+					<param name="count">4</param>
+					<param name="title">Left,Right,Disparity,Mask</param>
+				</Component>
+			</Executor>
+		</Subtask>	
+	</Subtasks>
+	
+	<!-- pipes connecting datastreams -->
+	<DataStreams>
+		<Source name="NextImageTrigger.out_trigger">
+			<sink>SourceL.in_next_image_trigger</sink>
+			<sink>SourceR.in_next_image_trigger</sink>
+		</Source>
+		<Source name="SourceL.out_img">
+			<sink>Undistort.in_img_left</sink>
+		</Source>
+		<Source name="SourceR.out_img">
+			<sink>Undistort.in_img_right</sink>
+		</Source>
+		<Source name="CameraInfoL.out_camera_info">
+			<sink>StereoEstimator.l_cam_info</sink>
+			<sink>Undistort.in_camera_info_left</sink>
+		</Source>
+		<Source name="CameraInfoR.out_camera_info">
+			<sink>StereoEstimator.r_cam_info</sink>
+			<sink>Undistort.in_camera_info_right</sink>
+		</Source>
+		
+		<Source name="Undistort.out_img_left">
+			<sink>StereoEstimator.l_in_img</sink>
+			<sink>Window.in_img0</sink>
+		</Source>
+		<Source name="Undistort.out_img_right">
+			<sink>StereoEstimator.r_in_img</sink>
+			<sink>Window.in_img1</sink>
+		</Source>
+
+		<Source name="StereoEstimator.out_mask">
+			<sink>Window.in_img3</sink>
+		</Source>
+		<Source name="StereoEstimator.out_disparity">
+			<sink>DepthRainbow.in_disparity</sink>
+		</Source>
+		<Source name="DepthRainbow.out_depth_rainbow">
+			<sink>Window.in_img2</sink>
+		</Source>
+	</DataStreams>
+</Task>
+

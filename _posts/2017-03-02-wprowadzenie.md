@@ -34,17 +34,17 @@ discode_gui
 {% endhighlight %}
 
 Na ekranie powinno pojawić się główne okno programu:
-![]({{ site.base_url }}/public/l1/gui.png)
+![]({{ site.baseurl }}/public/l1/gui.png)
 
 ## Uruchomienie zadania
 
 Po wybraniu opcji `Spawn` można wybrać z dysku zadanie do uruchomienia. Proszę wybrać zadanie `SequenceViewer.xml` z katalogu `/opt/discode/DCL/perm/tasks`.
 
-![]({{ site.base_url }}/public/l1/spawn.png)
+![]({{ site.baseurl }}/public/l1/spawn.png)
 
 Po uruchomieniu zadania (należy ponownie nacisnąć przycisk `Spawn`) w oknie powinien pojawić się spis uruchomionych komponentów, a dodatkowo powinno wyświetlić się okno ze zmieniającymi się obrazami testowymi.
 
-![]({{ site.base_url }}/public/l1/sequence.png)
+![]({{ site.baseurl }}/public/l1/sequence.png)
 
 ## Zmiana parametrów zadania
 
@@ -56,8 +56,8 @@ Przyciski w dolnej części okna pozwalają na wyzwalanie zdarzeń związanych z
 
 Na pasku narzędzi dostępne są dwa przyciski:
 
-| ![]({{ site.base_url }}/public/l1/disconnect.png) | Odłączenie od działającego zadania |
-| ![]({{ site.base_url }}/public/l1/exit.png) | Zakończenie działającego zadania |
+| ![]({{ site.baseurl }}/public/l1/disconnect.png) | Odłączenie od działającego zadania |
+| ![]({{ site.baseurl }}/public/l1/exit.png) | Zakończenie działającego zadania |
 
 **Odłączenie** interfejsu użytkownika od uruchomionego zadania pozwala na pozostawienie zadania działającego w tle. W celu ponownego podłączenia do tego zadania należy w głównym oknie programu wybrać opcję `Connect`.
 

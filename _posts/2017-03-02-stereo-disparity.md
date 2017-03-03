@@ -11,11 +11,11 @@ brief: Układ stereo-kamery - wyznaczanie obrazu rozbieżności (<i>disparity ma
 
 Posiadając dwa obrazy z kamery stereo, po ich wyprostowaniu w procesie rektyfikacji, możliwe jest wyznaczenie obrazu rozbieżności (_disparity map_).
 
-![Źródło obrazu: "Current Advancements in Stereo Vision" Edited by Asim Bhatti, ISBN 978-953-51-0660-9, Publisher: InTech, 2012 under CC BY 3.0 license]({{site.url}}/public/l1/stereo-geom.jpg)
+![Źródło obrazu: "Current Advancements in Stereo Vision" Edited by Asim Bhatti, ISBN 978-953-51-0660-9, Publisher: InTech, 2012 under CC BY 3.0 license]({{site.base_url}}/public/l1/stereo-geom.jpg)
 
 Mapa rozbieżności w każdym punkcie zawiera różnicę pomiędzy położeniem tego punktu w obrazie lewym i prawym (o ile jest możliwe jej wyznaczenie).
 W ogólności sprawdzenie, który punkt w obrazie prawym odpowiada obrazowi lewemu jest zadaniem trudnym, można jednak zastosować kilka uproszczeń.
-Posiadanie obrazóe po procesie rektyfikacji sprawia, że punkty obrazu odpowiadające temu samemu punktowi w przestrzeni znajdują się na jednej linii
+Posiadanie obrazów po procesie rektyfikacji sprawia, że punkty obrazu odpowiadające temu samemu punktowi w przestrzeni znajdują się na jednej linii
 epipolarnej (zazwyczaj poziomej). Dzięki temu poszukiwanie odpowiedników sprowadza się do przeszukania jedynie jednej linii obrazu.
 
 ## Uruchomienie zadania
@@ -23,7 +23,7 @@ epipolarnej (zazwyczaj poziomej). Dzięki temu poszukiwanie odpowiedników sprow
 Proszę uruchomić zadanie `StereoDisparity.xml` z katalogu zadań PERM. Na ekranie powinny pojawić się cztery okna z obrazami - 
 w dwóch są prezentowane obrazy wejściowe z lewej i prawej kamery, w dwóch pozostałych obraz rozbieżności oraz maska poprawnych pikseli.
 
-![]({{site.url}}/public/l1/stereo.png)
+![]({{site.base_url}}/public/l1/stereo.png)
 
 ## Struktura zadania
 
@@ -44,7 +44,7 @@ w dwóch są prezentowane obrazy wejściowe z lewej i prawej kamery, w dwóch po
       * *speckleWindowSize* - Maximum size of smooth disparity regions to consider their noise speckles and invalidate. Set it to 0 to disable speckle filtering. Otherwise, set it somewhere in the 50-200 range.
       * *speckleRange* - Maximum disparity variation within each connected component. If you do speckle filtering, set the parameter to a positive value, it will be implicitly multiplied by 16. Normally, 1 or 2 is good enough.
    * **DepthRainbow** - kolorowanie obrazu rozbieżności 
-      ![]({{site.url}}/public/l1/heatmap.png)
+      ![]({{site.base_url}}/public/l1/heatmap.png)
    * **Window** - wyświetlanie obrazów
 
 

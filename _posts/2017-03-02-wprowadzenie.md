@@ -29,22 +29,22 @@ Istotne (z punktu widzenia wykonywanych zadań) katalogi przedstawione zostały 
 Interfejs graficzny DisCODe (`discode_gui`) pozwala na uruchamianie i zatrzymywanie zadań a także na zmianę ich parametrów w trakcie działania. Aby go uruchomić, w terminalu należy wydać kolejno polecenia:
 
 {% highlight bash %}
-source /opt/DisCODe/setup.bash
+source /opt/discode/setup.bash
 discode_gui
 {% endhighlight %}
 
 Na ekranie powinno pojawić się główne okno programu:
-![]({{ site.url }}/public/l1/gui.png)
+![]({{ site.base_url }}/public/l1/gui.png)
 
 ## Uruchomienie zadania
 
 Po wybraniu opcji `Spawn` można wybrać z dysku zadanie do uruchomienia. Proszę wybrać zadanie `SequenceViewer.xml` z katalogu `/opt/discode/DCL/perm/tasks`.
 
-![]({{ site.url }}/public/l1/spawn.png)
+![]({{ site.base_url }}/public/l1/spawn.png)
 
 Po uruchomieniu zadania (należy ponownie nacisnąć przycisk `Spawn`) w oknie powinien pojawić się spis uruchomionych komponentów, a dodatkowo powinno wyświetlić się okno ze zmieniającymi się obrazami testowymi.
 
-![]({{ site.url }}/public/l1/sequence.png)
+![]({{ site.base_url }}/public/l1/sequence.png)
 
 ## Zmiana parametrów zadania
 
@@ -56,8 +56,8 @@ Przyciski w dolnej części okna pozwalają na wyzwalanie zdarzeń związanych z
 
 Na pasku narzędzi dostępne są dwa przyciski:
 
-| ![]({{ site.url }}/public/l1/disconnect.png) | Odłączenie od działającego zadania |
-| ![]({{ site.url }}/public/l1/exit.png) | Zakończenie działającego zadania |
+| ![]({{ site.base_url }}/public/l1/disconnect.png) | Odłączenie od działającego zadania |
+| ![]({{ site.base_url }}/public/l1/exit.png) | Zakończenie działającego zadania |
 
 **Odłączenie** interfejsu użytkownika od uruchomionego zadania pozwala na pozostawienie zadania działającego w tle. W celu ponownego podłączenia do tego zadania należy w głównym oknie programu wybrać opcję `Connect`.
 

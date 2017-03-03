@@ -20,7 +20,7 @@ Jakość uzyskanych wyników w znacznej mierze zależy od pokrycia pomiarami ca�
 
 Proszę uruchomić zadanie `CalibrateSequence.xml` z katalogu zadań PERM. Na ekranie powinny pojawić się dwa okna z obrazami - jedno z nich pokazuje obraz wejściowy wraz z nałożonym znalezionym wzorcem, drugie obraz po usunięciu zniekształceń optycznych.
 
-![]({{site.url}}/public/l1/t1_1.png)
+![]({{site.base_url}}/public/l1/t1_1.png)
 
 ## Struktura zadania
 

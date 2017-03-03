@@ -14,7 +14,7 @@ Przesunięcie pomiędzy osiami optycznymi kamer (zwane *baseline*) odpowiada w t
 Kalibracja układu kamer stereo, oprócz wyznaczenia parametrów wewnętrznych każdej z kamer, określa też ich wzajemne położenie
 (np. traktując lewą kamerę jako punkt odniesienia), czyli translację oraz rotację. 
 
-![Źródło obrazu: "Current Advancements in Stereo Vision" Edited by Asim Bhatti, ISBN 978-953-51-0660-9, Publisher: InTech, 2012 under CC BY 3.0 license]({{site.url}}/public/l1/stereo-geom.jpg)
+![Źródło obrazu: "Current Advancements in Stereo Vision" Edited by Asim Bhatti, ISBN 978-953-51-0660-9, Publisher: InTech, 2012 under CC BY 3.0 license]({{site.base_url}}/public/l1/stereo-geom.jpg)
 
 Kalibracja układu stereo może być dokonana jako jedno duże zadanie optymalizacyjne (kilkadziesiąt zmiennych do optymalizacji)
 bądź w trybie dwukrokowym, gdize najpierw kalibrowane sa niezależnie parametry wewnętrzne obu kamer, a następnie, znając je,

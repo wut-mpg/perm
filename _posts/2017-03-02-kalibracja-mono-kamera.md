@@ -39,7 +39,7 @@ Po uruchomieniu na ekranie powiny pojawić się dwa okna z obrazem, podobnie jak
 
 Poniżej znajduje się wyjaśnienie parametrów dla obu wzorców kalibracyjnych.
 
-![]({{site.url}}/public/l1/pattern_explained.png)
+![]({{site.base_url}}/public/l1/pattern_explained.png)
 
 ## Do zrobienia
 

@@ -106,6 +106,7 @@
 		</Source>
 		<Source name="StereoEstimator.out_disparity">
 			<sink>DepthRainbow.in_disparity</sink>
+			<sink>StereoWindow.in_disparity</sink>
 		</Source>
 		<Source name="DepthRainbow.out_depth_rainbow">
 			<sink>Window.in_img0</sink>

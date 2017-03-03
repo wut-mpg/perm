@@ -2,12 +2,12 @@
 	<!-- reference task information -->
 	<Reference>
 		<Author>
-			<name>Maciej Stefańczyk, Tomasz Kornuta</name>
+			<name>Maciej Stefańczyk</name>
 			<link></link>
 		</Author>
 		
 		<Description>
-			<brief>ecovi:t2/CalibrationOpenCV</brief>
+			<brief>Calibrates camera using sequence of images</brief>
 			<full>Task for calibration of the camera basing on the OpenCV exemplary image dataset</full>	
 		</Description>
 	</Reference>

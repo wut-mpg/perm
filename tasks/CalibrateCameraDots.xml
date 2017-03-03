@@ -8,8 +8,8 @@
 		</Author>
 		
 		<Description>
-			<brief>Calibrate kinect RGB camera</brief>
-			<full>Calibrate RGB camera of Kinect sensor using circles grid pattern.</full>	
+			<brief>Calibrate USB camera using dots pattern</brief>
+			<full>Calibrate USB camera (webcams, PS Eye etc.) using circles grid pattern.</full>	
 		</Description>
 	</Reference>
 	
@@ -17,12 +17,8 @@
 	<Subtasks>
 		<Subtask name="Processing">
 			<Executor name="Exec1"  period="0.1">
-				<Component name="Source" type="CameraNUI:CameraNUI" priority="1" bump="0">
-					<param name="lib">freenect</param>
-					<param name="skip_stop">1</param>
-					<param name="camera_mode">rgb</param>
-					<param name="sync">1</param>
-					<param name="index">0</param>
+				<Component name="Source" type="CvBasic:CameraOpenCV" priority="1" bump="0">
+					<param name="device">0</param>
 				</Component>
 				
 				<Component name="CameraInfo" type="CvCoreTypes:CameraInfoProvider" priority="2">
@@ -61,10 +57,6 @@
 		</Subtask>	
 	
 	</Subtasks>
-	
-	<!-- connections between events and handelrs -->
-	<Events>
-	</Events>
 	
 	<!-- pipes connecting datastreams -->
 	<DataStreams>

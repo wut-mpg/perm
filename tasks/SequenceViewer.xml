@@ -2,12 +2,12 @@
 	<!-- reference task information -->
 	<Reference>
 		<Author>
-			<name>Tomasz Kornuta</name>
+			<name>Maciej Stefańczyk</name>
 			<link></link>
 		</Author>
 		
 		<Description>
-			<brief>ecovi:t1/SequenceViewer</brief>
+			<brief>Simple sequence vViewer</brief>
 			<full>Loads and displays a sequence of images</full>	
 		</Description>
 	</Reference>

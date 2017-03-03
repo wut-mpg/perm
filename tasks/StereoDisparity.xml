@@ -59,10 +59,13 @@
 		</Subtask>	
 
 		<Subtask name="Display">
-			<Executor name="Exec2" period="0.5">
+			<Executor name="Exec2" period="0.05">
 				<Component name="Window" type="CvBasic:CvWindow" priority="1" bump="0">
-					<param name="count">4</param>
-					<param name="title">Left,Right,Disparity,Mask</param>
+					<param name="count">2</param>
+					<param name="title">Disparity,Mask</param>
+				</Component>
+
+				<Component name="StereoWindow" type="CvStereo:CvWindow" priority="2" bump="0">
 				</Component>
 			</Executor>
 		</Subtask>	
@@ -91,22 +94,21 @@
 		
 		<Source name="Undistort.out_img_left">
 			<sink>StereoEstimator.l_in_img</sink>
-			<sink>Window.in_img0</sink>
+			<sink>StereoWindow.in_img_left</sink>
 		</Source>
 		<Source name="Undistort.out_img_right">
 			<sink>StereoEstimator.r_in_img</sink>
-			<sink>Window.in_img1</sink>
+			<sink>StereoWindow.in_img_right</sink>
 		</Source>
 
 		<Source name="StereoEstimator.out_mask">
-			<sink>Window.in_img3</sink>
+			<sink>Window.in_img1</sink>
 		</Source>
 		<Source name="StereoEstimator.out_disparity">
 			<sink>DepthRainbow.in_disparity</sink>
 		</Source>
 		<Source name="DepthRainbow.out_depth_rainbow">
-			<sink>Window.in_img2</sink>
+			<sink>Window.in_img0</sink>
 		</Source>
 	</DataStreams>
 </Task>
-

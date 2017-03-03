@@ -100,7 +100,7 @@
 	
 	<!-- pipes connecting datastreams -->
 	<DataStreams>
-		<Source name="Trigger.out_trigger">
+		<Source name="Trigger.out_NextImage">
 			<sink>SourceL.in_next_image_trigger</sink>
 			<sink>SourceR.in_next_image_trigger</sink>
 		</Source>

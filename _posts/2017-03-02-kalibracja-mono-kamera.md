@@ -17,7 +17,7 @@ W zależności od podłączonej do komputera kamery oraz zastosowanego wzorca te
 | PS Eye + szachownica    | `CalibrateCameraChessboard.xml` |
 | PS Eye + kropki         | `CalibrateCameraDots.xml` |
 
-Po uruchomieniu na ekranie powiny pojawić się dwa okna z obrazem, podobnie jak w zadaniu poprzednim.
+Po uruchomieniu na ekranie powinny pojawić się dwa okna z obrazem, podobnie jak w zadaniu poprzednim.
 
 ## Struktura zadania
 

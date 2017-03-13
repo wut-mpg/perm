@@ -9,7 +9,7 @@ brief: Kalibracja parametrów wewnętrznych pojedynczej kamery - studium przypad
 
 ## Informacje wstępne
 
-Kalibracja parametrów wewnętrznych kamery (ogniskowa, współrzędne przecięcia osi optycznej z matrycą, współczynniki zniekształceń optycznych) możę być przeprowadzona
+Kalibracja parametrów wewnętrznych kamery (ogniskowa, współrzędne przecięcia osi optycznej z matrycą, współczynniki zniekształceń optycznych) może być przeprowadzona
 z wykorzystaniem znanego wzorca kalibracyjnego. Jednymi z częściej wykorzystywanych wzorców są szachownice o znanym rozmiarze. Znając współrzędne wierzchołków 
 szachownicy w rzeczywistości (względem jednego z jej narożników) oraz odpowiadające im współrzędne w obrazie można przeprowadzić proces optymalizacji, który wyznaczy 
 poszukiwane parametry. 

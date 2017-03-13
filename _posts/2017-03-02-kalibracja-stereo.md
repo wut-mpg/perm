@@ -17,7 +17,7 @@ Kalibracja układu kamer stereo, oprócz wyznaczenia parametrów wewnętrznych k
 ![Źródło obrazu: "Current Advancements in Stereo Vision" Edited by Asim Bhatti, ISBN 978-953-51-0660-9, Publisher: InTech, 2012 under CC BY 3.0 license]({{site.baseurl}}/public/l1/stereo-geom.jpg)
 
 Kalibracja układu stereo może być dokonana jako jedno duże zadanie optymalizacyjne (kilkadziesiąt zmiennych do optymalizacji)
-bądź w trybie dwukrokowym, gdize najpierw kalibrowane sa niezależnie parametry wewnętrzne obu kamer, a następnie, znając je,
+bądź w trybie dwukrokowym, gdzie najpierw kalibrowane sa niezależnie parametry wewnętrzne obu kamer, a następnie, znając je,
 optymalizowane jest wzajemne położenie obu kamer. 
 
 Poprawnie skalibrowana para stereo pozwala na przeprowadzenie procesu rektyfikacji obrazu, czyli takiego przekształcenia, 
@@ -53,7 +53,7 @@ w dwóch są prezentowane obrazy wejściowe z lewej i prawej kamery, w dwóch po
 Dla każdego poprawnie wykrytego wzorca kalibracyjnego dodać nowy pomiar w komponencie `Calib`
 (proszę zwrócić uwagę na to, czy wzorzec wykryty jest w obu obrazach jednocześnie).
 2. Po zebraniu wszystkich pomiarów proszę przeprowadzić kalibrację układu w dwóch trybach (tryb kalibracji dwukrokowej `two_step`).
-  Proszę porównać wyniki kalibracji dla obu przypakdów, a także porównać je z wynikami uzyskanymi w pierwszym zadaniu
+  Proszę porównać wyniki kalibracji dla obu przypadków, a także porównać je z wynikami uzyskanymi w pierwszym zadaniu
   (gdzie kalibrowane były parametry wewnętrzne lewej kamery).
 3. Zmieniając współczynnik `alpha` w komponencie `Undistort` można zaobserwować wielkość zniekształceń optycznych.
 4. Proszę zapisać kalibrację obu kamer (lewej i prawej) do pliku - wywołać zdarzenie `save_file` w obu komponentach.

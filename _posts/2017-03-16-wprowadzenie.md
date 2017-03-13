@@ -19,7 +19,7 @@ $$
 \end{matrix} \right)
 $$
 
-oraz wektor \\( \mathbf{b}=[1,5,8] \\), a następnie rozwiązać układ równań liniowch \\( \mathbf{A}\mathbf{x}=\mathbf{b}^\mathsf{T} \\).
+oraz wektor \\( \mathbf{b}=[1,5,8] \\), a następnie rozwiązać układ równań liniowych \\( \mathbf{A}\mathbf{x}=\mathbf{b}^\mathsf{T} \\).
 
 ## Metoda najmniejszych kwadratów
 

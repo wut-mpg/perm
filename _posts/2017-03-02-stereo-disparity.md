@@ -45,12 +45,19 @@ w dwóch są prezentowane obrazy wejściowe z lewej i prawej kamery, w dwóch po
       * *speckleRange* - Maximum disparity variation within each connected component. If you do speckle filtering, set the parameter to a positive value, it will be implicitly multiplied by 16. Normally, 1 or 2 is good enough.
    * **DepthRainbow** - kolorowanie obrazu rozbieżności 
       ![]({{site.baseurl}}/public/l1/heatmap.png)
-   * **Window** - wyświetlanie obrazów
+   * **Window** - wyświetlanie obrazów rozbieżności i maski
+   * **StereoWindow** - wyświetlanie pary obrazów stereo
+      * klikając na wybrane punkty w lewym i prawym obrazie można wyznaczyć ich rozbieżność,
+      * trzymając przycisk `CTRL` i poruszając kursorem po lewym obrazie aktywuje się tryb podglądu rozbieżności - jeżeli dany punkt ma wyliczoną jej wartość, wskazywany jest odpowiadający mupunkt na prawym obrazie.
 
 
 ## Do zrobienia
 
-1. Dobrać parametry tak, aby uzyskany obraz różnicowy był możliwie pełny, jednocześnie minimalizując liczbę błednych dopasowań.
+1. Dobrać parametry tak, aby uzyskany obraz różnicowy był możliwie pełny, jednocześnie minimalizując liczbę błednych dopasowań. Zalecana kolejność działań:
+   * ustalić minimalną możliwość wartość rozbieżności `minDisparity`,
+   * określić zakres obliczanej rozbieżności `disparityRange` (pamiętając o tym, że powinien być on podzielny przez 16),
+   * dobrać rozmiar okna `SADWindowSize`,
+   * dopasować parametry filtrowania błędnych dopasowań (`speckle*`, `uniquenessRatio`).
 
 ## Do poczytania
    * OpenCV reference manual: [Camera Calibration and 3D Reconstruction](http://docs.opencv.org/2.4/modules/calib3d/doc/camera_calibration_and_3d_reconstruction.html)

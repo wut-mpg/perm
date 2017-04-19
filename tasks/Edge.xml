@@ -1,0 +1,73 @@
+<Task>
+	<!-- reference task information -->
+	<Reference>
+		<Author>
+			<name>Maciej Stefańczyk</name>
+			<link></link>
+		</Author>
+	
+		<Description>
+			<brief>Simple camera viewer</brief>
+			<full>Simple camera viewer</full>
+		</Description>
+	</Reference>
+
+	<!-- task definition -->
+	<Subtasks>
+		<Subtask name="Processing">
+			<Executor name="Exec1" period="0.01">
+				<Component name="Source" type="CvBasic:CameraOpenCV" priority="1" bump="0">
+					<param name="device">0</param>
+				</Component>
+				
+				<Component name="Blur" type="CvBasic:CvGaussianBlur" priority="2">
+				</Component>
+				
+				<Component name="Sobel" type="CvBasic:Sobel" priority="11" bump="0">
+				</Component>
+				
+				<Component name="Scharr" type="CvBasic:Scharr" priority="12" bump="0">
+				</Component>
+				
+				<Component name="Canny" type="CvBasic:CvCanny" priority="13" bump="0">
+				</Component>
+			</Executor>
+		</Subtask>
+			
+		<Subtask name="Visualisation">
+			<Executor name="Exec2" period="0.05">
+				<Component name="Window" type="CvBasic:CvWindow" priority="1" bump="0">
+					<param name="count">4</param>
+					<param name="title">Input,Sobel,Scharr,Canny</param>
+				</Component>
+			</Executor>
+		</Subtask>
+	</Subtasks>
+	
+	<!-- connections between events and handelrs -->
+	<Events>
+	</Events>
+	
+	<!-- pipes connecting datastreams -->
+	<DataStreams>
+		<Source name="Source.out_img">
+			<sink>Window.in_img0</sink>
+			<sink>Blur.in_img</sink>
+		</Source>
+		<Source name="Blur.out_img">
+			<sink>Canny.in_img</sink>
+			<sink>Sobel.in_img</sink>
+			<sink>Scharr.in_img</sink>
+		</Source>
+		<Source name="Sobel.out_img">
+			<sink>Window.in_img1</sink>
+		</Source>
+		<Source name="Scharr.out_img">
+			<sink>Window.in_img2</sink>
+		</Source>
+		<Source name="Canny.out_img">
+			<sink>Window.in_img3</sink>
+		</Source>
+	</DataStreams>
+</Task>
+

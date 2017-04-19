@@ -1,0 +1,70 @@
+<Task>
+	<!-- reference task information -->
+	<Reference>
+		<Author>
+			<name>Maciej Stefańczyk</name>
+			<link></link>
+		</Author>
+	
+		<Description>
+			<brief>Simple camera viewer</brief>
+			<full>Simple camera viewer</full>
+		</Description>
+	</Reference>
+
+	<!-- task definition -->
+	<Subtasks>
+		<Subtask name="Processing">
+			<Executor name="Exec1" period="0.01">
+				<Component name="Source" type="CvBasic:CameraOpenCV" priority="1" bump="0">
+					<param name="device">0</param>
+				</Component>
+				<Component name="Box" type="CvBasic:BoxBlur" priority="2">
+				</Component>
+				<Component name="Gauss" type="CvBasic:CvGaussianBlur" priority="2">
+				</Component>
+				<Component name="Median" type="CvBasic:Median" priority="2">
+				</Component>
+				<Component name="Bilateral" type="CvBasic:BilateralFilter" priority="2">
+				</Component>
+			</Executor>
+		</Subtask>
+			
+		<Subtask name="Visualisation">
+			<Executor name="Exec2" period="0.05">
+				<Component name="Window" type="CvBasic:CvWindow" priority="1" bump="0">
+					<param name="count">5</param>
+					<param name="title">Input,Box,Gauss,Media,Bilateral</param>
+				</Component>
+			</Executor>
+		</Subtask>
+	</Subtasks>
+	
+	<!-- connections between events and handelrs -->
+	<Events>
+	</Events>
+	
+	<!-- pipes connecting datastreams -->
+	<DataStreams>
+		<Source name="Source.out_img">
+			<sink>Window.in_img0</sink>
+			<sink>Box.in_img</sink>
+			<sink>Gauss.in_img</sink>
+			<sink>Median.in_img</sink>
+			<sink>Bilateral.in_img</sink>
+		</Source>
+		<Source name="Box.out_img">
+			<sink>Window.in_img1</sink>
+		</Source>
+		<Source name="Gauss.out_img">
+			<sink>Window.in_img2</sink>
+		</Source>
+		<Source name="Median.out_img">
+			<sink>Window.in_img3</sink>
+		</Source>
+		<Source name="Bilateral.out_img">
+			<sink>Window.in_img4</sink>
+		</Source>
+	</DataStreams>
+</Task>
+

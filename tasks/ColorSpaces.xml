@@ -1,0 +1,89 @@
+<Task>
+	<!-- reference task information -->
+	<Reference>
+		<Author>
+			<name>Maciej Stefańczyk</name>
+			<link></link>
+		</Author>
+	
+		<Description>
+			<brief>Simple camera viewer</brief>
+			<full>Simple camera viewer</full>
+		</Description>
+	</Reference>
+
+	<!-- task definition -->
+	<Subtasks>
+		<Subtask name="Processing">
+			<Executor name="Exec1" period="0.01">
+				<Component name="Source" type="CvBasic:CameraOpenCV" priority="1" bump="0">
+					<param name="device">0</param>
+				</Component>
+				<Component name="Color" type="CvBasic:CvColorConv" priority="2">
+					<param name="type">BGR2HSV</param>
+				</Component>
+				<Component name="RGBLUT" type="CvBasic:RGBLUT" priority="3">
+				</Component>
+				<Component name="HSVLUT" type="CvBasic:HSVLUT" priority="4">
+				</Component>
+				<Component name="RGBVis" type="CvBasic:ColorVis" priority="5">
+					<param name="type">RGB</param>
+				</Component>
+				<Component name="HSVSplit" type="CvBasic:CvSplit" priority="6">
+				</Component>
+			</Executor>
+		</Subtask>
+			
+		<Subtask name="Visualisation">
+			<Executor name="Exec2" period="0.05">
+				<Component name="Window" type="CvBasic:CvWindow" priority="1" bump="0">
+					<param name="count">9</param>
+					<param name="title">Input,RGB,HSV,B,G,R,H,S,V</param>
+				</Component>
+			</Executor>
+		</Subtask>
+	</Subtasks>
+	
+	<!-- connections between events and handelrs -->
+	<Events>
+	</Events>
+	
+	<!-- pipes connecting datastreams -->
+	<DataStreams>
+		<Source name="Source.out_img">
+			<sink>Window.in_img0</sink>
+			<sink>RGBLUT.in_img</sink>
+			<sink>Color.in_img</sink>
+			<sink>RGBVis.in_img</sink>
+		</Source>
+		<Source name="Color.out_img">
+			<sink>HSVLUT.in_img</sink>
+			<sink>HSVSplit.in_img</sink>
+		</Source>
+		<Source name="RGBLUT.out_img">
+			<sink>Window.in_img1</sink>
+		</Source>
+		<Source name="HSVLUT.out_img">
+			<sink>Window.in_img2</sink>
+		</Source>
+		<Source name="RGBVis.out_plane0">
+			<sink>Window.in_img3</sink>
+		</Source>
+		<Source name="RGBVis.out_plane1">
+			<sink>Window.in_img4</sink>
+		</Source>
+		<Source name="RGBVis.out_plane2">
+			<sink>Window.in_img5</sink>
+		</Source>
+		<Source name="HSVSplit.out_img_0">
+			<sink>Window.in_img6</sink>
+		</Source>
+		<Source name="HSVSplit.out_img_1">
+			<sink>Window.in_img7</sink>
+		</Source>
+		<Source name="HSVSplit.out_img_2">
+			<sink>Window.in_img8</sink>
+		</Source>
+	</DataStreams>
+</Task>
+

@@ -1,0 +1,82 @@
+<Task>
+	<!-- reference task information -->
+	<Reference>
+		<Author>
+			<name>Maciej Stefańczyk</name>
+			<link></link>
+		</Author>
+	
+		<Description>
+			<brief>Simple camera viewer</brief>
+			<full>Simple camera viewer</full>
+		</Description>
+	</Reference>
+
+	<!-- task definition -->
+	<Subtasks>
+		<Subtask name="Processing">
+			<Executor name="Exec1" period="0.01">
+				<Component name="Sequence" type="CvBasic:Sequence" priority="1" bump="0">
+					<param name="sequence.directory">/home/maciej/Pictures</param>
+					<param name="sequence.pattern">.*PG\.png</param>
+					<param name="mode.loop">1</param>
+				</Component>
+				<Component name="Thr" type="CvBasic:CvThreshold" priority="2" bump="5">
+				</Component>
+				<Component name="Erode" type="CvBasic:CvMorphology" priority="11">
+					<param name="type">MORPH_ERODE</param>
+				</Component>
+				<Component name="Dilate" type="CvBasic:CvMorphology" priority="12">
+					<param name="type">MORPH_DILATe</param>
+				</Component>
+				<Component name="Open" type="CvBasic:CvMorphology" priority="13">
+					<param name="type">MORPH_OPEN</param>
+				</Component>
+				<Component name="Close" type="CvBasic:CvMorphology" priority="14">
+					<param name="type">MORPH_CLOSE</param>
+				</Component>
+			</Executor>
+		</Subtask>
+			
+		<Subtask name="Visualisation">
+			<Executor name="Exec2" period="0.05">
+				<Component name="Window" type="CvBasic:CvWindow" priority="1" bump="0">
+					<param name="count">6</param>
+					<param name="title">Input,Erode,Dilate,Open,Close,Thr</param>
+				</Component>
+			</Executor>
+		</Subtask>
+	</Subtasks>
+	
+	<!-- connections between events and handelrs -->
+	<Events>
+	</Events>
+	
+	<!-- pipes connecting datastreams -->
+	<DataStreams>
+		<Source name="Sequence.out_img">
+			<sink>Window.in_img0</sink>
+			<sink>Thr.in_img</sink>
+		</Source>
+		<Source name="Thr.out_img">
+			<sink>Window.in_img5</sink>
+			<sink>Erode.in_img</sink>
+			<sink>Dilate.in_img</sink>
+			<sink>Open.in_img</sink>
+			<sink>Close.in_img</sink>
+		</Source>
+		<Source name="Erode.out_img">
+			<sink>Window.in_img1</sink>
+		</Source>
+		<Source name="Dilate.out_img">
+			<sink>Window.in_img2</sink>
+		</Source>
+		<Source name="Open.out_img">
+			<sink>Window.in_img3</sink>
+		</Source>
+		<Source name="Close.out_img">
+			<sink>Window.in_img4</sink>
+		</Source>
+	</DataStreams>
+</Task>
+

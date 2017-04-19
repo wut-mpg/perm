@@ -1,0 +1,91 @@
+<Task>
+	<!-- reference task information -->
+	<Reference>
+		<Author>
+			<name>Maciej Stefańczyk</name>
+			<link></link>
+		</Author>
+	
+		<Description>
+			<brief>Simple camera viewer</brief>
+			<full>Simple camera viewer</full>
+		</Description>
+	</Reference>
+
+	<!-- task definition -->
+	<Subtasks>
+		<Subtask name="Processing">
+			<Executor name="Exec1" period="0.01">
+				<Component name="Source" type="CvBasic:CameraOpenCV" priority="1" bump="0">
+					<param name="device">0</param>
+				</Component>
+				<Component name="Color" type="CvBasic:CvColorConv" priority="2">
+					<param name="type">BGR2HSV</param>
+				</Component>
+				<Component name="HSVLUT" type="CvBasic:HSVLUT" priority="4">
+					<param name="hue.threshold.high">0</param>
+					<param name="saturation.threshold.high">0</param>
+					<param name="value.threshold.high">0</param>
+				</Component>
+				<Component name="M1" type="CvBasic:CvMorphology" priority="11">
+					<param name="type">MORPH_OPEN</param>
+				</Component>
+				<Component name="M2" type="CvBasic:CvMorphology" priority="12">
+					<param name="type">MORPH_OPEN</param>
+				</Component>
+				<Component name="M3" type="CvBasic:CvMorphology" priority="13">
+					<param name="type">MORPH_OPEN</param>
+				</Component>
+				<Component name="Contours" type="CvBasic:CvContour" priority="20">
+				</Component>
+				<Component name="Fruits" type="CvBasic:ShapeDetector" priority="30">
+				</Component>
+			</Executor>
+		</Subtask>
+			
+		<Subtask name="Visualisation">
+			<Executor name="Exec2" period="0.05">
+				<Component name="Window" type="CvBasic:CvWindow" priority="1" bump="0">
+					<param name="count">4</param>
+					<param name="title">Input,Thr,Morph,Contours</param>
+				</Component>
+			</Executor>
+		</Subtask>
+	</Subtasks>
+	
+	<!-- connections between events and handelrs -->
+	<Events>
+	</Events>
+	
+	<!-- pipes connecting datastreams -->
+	<DataStreams>
+		<Source name="Source.out_img">
+			<sink>Color.in_img</sink>
+			<sink>Fruits.in_img</sink>
+		</Source>
+		<Source name="Color.out_img">
+			<sink>HSVLUT.in_img</sink>
+		</Source>
+		<Source name="HSVLUT.out_img">
+			<sink>Window.in_img1</sink>
+			<sink>M1.in_img</sink>
+		</Source>
+		<Source name="M1.out_img">
+			<sink>M2.in_img</sink>
+		</Source>
+		<Source name="M2.out_img">
+			<sink>M3.in_img</sink>
+		</Source>
+		<Source name="M3.out_img">
+			<sink>Contours.in_img</sink>
+			<sink>Window.in_img2</sink>
+		</Source>
+		<Source name="Contours.out_contours">
+			<sink>Fruits.in_contours</sink>
+		</Source>
+		<Source name="Fruits.out_img">
+			<sink>Window.in_img0</sink>
+		</Source>
+	</DataStreams>
+</Task>
+

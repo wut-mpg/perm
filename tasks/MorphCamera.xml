@@ -19,7 +19,7 @@
 				<Component name="Source" type="CvBasic:CameraOpenCV" priority="1" bump="0">
 					<param name="device">0</param>
 				</Component>
-				<Component name="Thr" type="CvBasic:CvThreshold" priority="2" bump="5">
+				<Component name="Thr" type="CvBasic:CvThreshold" priority="2" bump="0">
 				</Component>
 				<Component name="Erode" type="CvBasic:CvMorphology" priority="11">
 					<param name="type">MORPH_ERODE</param>

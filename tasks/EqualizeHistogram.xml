@@ -2,7 +2,7 @@
 	<!-- reference task information -->
 	<Reference>
 		<Author>
-			<name>Tomasz Kornuta</name>
+			<name>Maciej Stefańczyk</name>
 			<link></link>
 		</Author>
 		
@@ -15,15 +15,14 @@
 	<!-- task definition -->
 	<Subtasks>
 		<Subtask name="Main">
-			<Executor name="Processing"  period="1">
+			<Executor name="Processing"  period="0.1">
 				<Component name="Sequence" type="CvBasic:Sequence" priority="1" bump="0">
-					<param name="sequence.directory">/home/maciej/Pictures</param>
-					<param name="sequence.pattern">.*\.png</param>
+					<param name="sequence.directory">%[TASK_LOCATION]%/../data/l3/</param>
+					<param name="sequence.pattern">histogram.png</param>
 					<param name="mode.loop">1</param>
+					<param name="mode.auto_next_image">0</param>
 				</Component>
 				<Component name="B/C" type="CvBasic:BrightnessContrast" priority="2" bump="0">
-				</Component>
-				<Component name="Thr" type="CvBasic:CvThreshold" priority="3" bump="5">
 				</Component>
 			</Executor>
 			<Executor name="Visualization" period="0.2">
@@ -45,10 +44,7 @@
 		</Source>
 		<Source name="B/C.out_img">
 			<sink>Histogram.in_img</sink>
-			<sink>Thr.in_img</sink>	
-		</Source>
-		<Source name="Thr.out_img">	
-			<sink>Window.in_img</sink>			
+			<sink>Window.in_img</sink>	
 		</Source>
 	</DataStreams>
 </Task>

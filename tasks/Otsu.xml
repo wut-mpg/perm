@@ -18,16 +18,19 @@
 			<Executor name="Processing"  period="0.1">
 				<Component name="Sequence" type="CvBasic:Sequence" priority="1" bump="0">
 					<param name="sequence.directory">%[TASK_LOCATION]%/../data/l3/</param>
-					<param name="sequence.pattern">cells\.png</param>
+					<param name="sequence.pattern">text.*\.jpg</param>
 					<param name="mode.loop">1</param>
+					<param name="mode.auto_next_image">0</param>
 				</Component>
-				<Component name="Hough" type="CvBasic:CvHoughCircles" priority="3" bump="0">
+				<Component name="Thr" type="CvBasic:CvThreshold" priority="3" bump="0">
 				</Component>
 			</Executor>
 			<Executor name="Visualization" period="0.2">
 				<Component name="Window" type="CvBasic:CvWindow" priority="1" bump="0">
-					<param name="count">2</param>
-					<param name="title">Input,Threshold</param>
+					<param name="count">1</param>
+					<param name="title">Window</param>
+				</Component>
+				<Component name="Histogram" type="CvBasic:CalcHist" priority="2" bump="0">
 				</Component>
 			</Executor>
 		</Subtask>	
@@ -36,12 +39,12 @@
 	
 	<!-- pipes connecting datastreams -->
 	<DataStreams>
-		<Source name="Sequence.out_img">	
-			<sink>Hough.in_img</sink>			
-			<sink>Window.in_img0</sink>			
+		<Source name="Sequence.out_img">
+			<sink>Histogram.in_img</sink>
+			<sink>Thr.in_img</sink>	
 		</Source>
-		<Source name="Hough.out_circles">
-			<sink>Window.in_draw0</sink>
+		<Source name="Thr.out_img">	
+			<sink>Window.in_img</sink>			
 		</Source>
 	</DataStreams>
 </Task>

@@ -2,7 +2,7 @@
 	<!-- reference task information -->
 	<Reference>
 		<Author>
-			<name>Tomasz Kornuta</name>
+			<name>Maciej Stefańczyk</name>
 			<link></link>
 		</Author>
 		
@@ -15,11 +15,12 @@
 	<!-- task definition -->
 	<Subtasks>
 		<Subtask name="Main">
-			<Executor name="Processing"  period="1">
+			<Executor name="Processing"  period="0.1">
 				<Component name="Sequence" type="CvBasic:Sequence" priority="1" bump="0">
-					<param name="sequence.directory">/home/maciej/Pictures</param>
-					<param name="sequence.pattern">.*\.jpg</param>
+					<param name="sequence.directory">%[TASK_LOCATION]%/../data/l3/</param>
+					<param name="sequence.pattern">text.*\.jpg</param>
 					<param name="mode.loop">1</param>
+					<param name="mode.auto_next_image">0</param>
 				</Component>
 				<Component name="Color" type="CvBasic:CvColorConv" priority="2">
 					<param name="type">BGR2GRAY</param>

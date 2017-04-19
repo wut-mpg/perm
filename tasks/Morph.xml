@@ -15,13 +15,13 @@
 	<!-- task definition -->
 	<Subtasks>
 		<Subtask name="Processing">
-			<Executor name="Exec1" period="0.01">
+			<Executor name="Exec1" period="0.1">
 				<Component name="Sequence" type="CvBasic:Sequence" priority="1" bump="0">
-					<param name="sequence.directory">/home/maciej/Pictures</param>
-					<param name="sequence.pattern">.*PG\.png</param>
+					<param name="sequence.directory">%[TASK_LOCATION]%/../data/l3/</param>
+					<param name="sequence.pattern">cells\.png</param>
 					<param name="mode.loop">1</param>
 				</Component>
-				<Component name="Thr" type="CvBasic:CvThreshold" priority="2" bump="5">
+				<Component name="Thr" type="CvBasic:CvThreshold" priority="2" bump="0">
 				</Component>
 				<Component name="Erode" type="CvBasic:CvMorphology" priority="11">
 					<param name="type">MORPH_ERODE</param>

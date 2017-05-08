@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<Task>
+	<!-- reference task information -->
+	<Reference>
+		<Author>
+			<name>Dawid Kaczmarek</name>
+			<link></link>
+		</Author>
+	
+		<Description>
+			<brief>Displays a sequence of stereo (RGB and depth XYZ) images</brief>
+			<full>Displays a sequence of stereo (RGB and depth XYZ) images generated from pairs of left-right (LR) camera images. Enables writing of RGB-XYZ pairs to files (in png and yml format respectivelly).</full>
+		</Description>
+	</Reference>
+
+	<!-- task definition -->
+	<Subtasks>
+		<Subtask name="Processing">
+			<Executor name="Exec1" period="0.1">
+				<Component name="NextImageTrigger" type="CvBasic:Trigger" priority="1" bump="0">
+				</Component>
+				<Component name="SourceL" type="CvBasic:Sequence" priority="2" bump="0">
+					<param name="sequence.directory">%[TASK_LOCATION]%/../data/calibration_opencv/</param>
+					<param name="sequence.pattern">left.*\.jpg</param>
+					<param name="mode.loop">1</param>
+					<param name="mode.auto_next_image">0</param>
+				</Component>
+				<Component name="SourceR" type="CvBasic:Sequence" priority="3" bump="0">
+					<param name="sequence.directory">%[TASK_LOCATION]%/../data/calibration_opencv/</param>
+					<param name="sequence.pattern">right.*\.jpg</param>
+					<param name="mode.loop">1</param>
+					<param name="mode.auto_next_image">0</param>
+				</Component>
+				<Component name="CameraInfoL" type="CvCoreTypes:CameraInfoProvider" priority="4" bump="0">
+					<param name="data_file">%[TASK_LOCATION]%/../data/left.yml</param>
+				</Component>
+				<Component name="CameraInfoR" type="CvCoreTypes:CameraInfoProvider" priority="5" bump="0">
+					<param name="data_file">%[TASK_LOCATION]%/../data/right.yml</param>
+				</Component>
+				<Component name="Undistort" type="CvStereo:Undistort" priority="6" bump="0">
+				</Component>
+				<Component name="StereoEstimator" type="CvStereo:StereoEstimator" priority="10" bump="0">
+					<param name="minDisparity">48</param>
+					<param name="numberOfDisparities">208</param>
+					<param name="perform_rectification">0</param>
+					<param name="SADWindowSize">9</param>
+					<param name="preFilterCap">50</param>
+					<param name="speckleRange">50</param>
+					<param name="speckleWindowSize">100</param>
+					<param name="textureThreshold">10</param>
+					<param name="uniquenessRatio">20</param>
+					<param name="disp12MaxDiff">10</param>
+				</Component>
+				<Component name="DepthRainbow" type="CvStereo:DepthRainbow" priority="20" bump="0">
+					<param name="min_range">10</param>
+					<param name="max_range">128</param>
+				</Component>
+				<Component name="Converter" type="PCL:DepthConverter" priority="30" bump="0">
+				</Component>
+				<Component name="Color" type="CvBasic:CvColorConv" priority="40">
+					<param name="type">GRAY2BGR</param>
+				</Component>
+			</Executor>
+		</Subtask>
+
+		<Subtask name="Display">
+			<Executor name="Exec2" period="0.05">
+				<Component name="Window" type="CvBasic:CvWindow" priority="1" bump="0">
+					<param name="count">2</param>
+					<param name="title">Disparity,Mask</param>
+				</Component>
+
+				<Component name="StereoWindow" type="CvStereo:CvWindow" priority="2" bump="0">
+				</Component>
+				
+				<Component name="PCLWindow" type="PCL:CloudViewer" priority="3" bump="0">
+				</Component>
+			</Executor>
+		</Subtask>	
+	</Subtasks>
+	
+	<!-- pipes connecting datastreams -->
+	<DataStreams>
+		<Source name="NextImageTrigger.out_trigger">
+			<sink>SourceL.in_next_image_trigger</sink>
+			<sink>SourceR.in_next_image_trigger</sink>
+		</Source>
+		<Source name="SourceL.out_img">
+			<sink>Undistort.in_img_left</sink>
+		</Source>
+		<Source name="SourceR.out_img">
+			<sink>Undistort.in_img_right</sink>
+		</Source>
+		<Source name="CameraInfoL.out_camera_info">
+			<sink>StereoEstimator.l_cam_info</sink>
+			<sink>Undistort.in_camera_info_left</sink>
+		</Source>
+		<Source name="CameraInfoR.out_camera_info">
+			<sink>StereoEstimator.r_cam_info</sink>
+			<sink>Undistort.in_camera_info_right</sink>
+		</Source>
+		
+		<Source name="Undistort.out_img_left">
+			<sink>StereoEstimator.l_in_img</sink>
+			<sink>StereoWindow.in_img_left</sink>
+		</Source>
+		<Source name="Undistort.out_img_right">
+			<sink>StereoEstimator.r_in_img</sink>
+			<sink>StereoWindow.in_img_right</sink>
+		</Source>
+
+		<Source name="StereoEstimator.out_mask">
+			<sink>Window.in_img1</sink>
+			<!--<sink>Converter.in_mask</sink>-->
+		</Source>
+		<Source name="StereoEstimator.out_disparity">
+			<sink>DepthRainbow.in_disparity</sink>
+			<sink>StereoWindow.in_disparity</sink>
+		</Source>
+		<Source name="DepthRainbow.out_depth_rainbow">
+			<sink>Window.in_img0</sink>
+		</Source>
+		
+		<Source name="StereoEstimator.out_depth_xyz">
+			<sink>Converter.in_depth_xyz</sink>
+		</Source>
+		
+		<Source name="StereoEstimator.out_rgb_stereo">
+			<sink>Color.in_img</sink>
+		</Source>
+		
+		<Source name="Color.out_img">
+			<sink>Converter.in_color</sink>
+		</Source>
+		
+		<Source name="Converter.out_cloud_xyzrgb">
+			<sink>PCLWindow.in_cloud_xyzrgb</sink>
+		</Source>
+	</DataStreams>
+</Task>

@@ -16,10 +16,9 @@
 	<Subtasks>
 		<Subtask name="Processing">
 			<Executor name="Exec1" period="0.1">
-				<Component name="Sequence" type="CvBasic:Sequence" priority="1" bump="0">
-					<param name="sequence.directory">%[TASK_LOCATION]%/../data/l3/</param>
-					<param name="sequence.pattern">cells\.png</param>
-					<param name="mode.loop">1</param>
+				
+				<Component name="Source" type="CvBasic:CameraOpenCV" priority="1" bump="0">
+					<param name="device">0</param>
 				</Component>
 				<Component name="Thr" type="CvBasic:CvThreshold" priority="2" bump="0">
 				</Component>

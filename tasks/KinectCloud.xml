@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Task>
+	<!-- reference task information -->
+	<Reference>
+		<Author>
+			<name>Tomasz Kornuta</name>
+			<link></link>
+		</Author>
+		
+		<Description>
+			<brief>Displays XYZRGB cloud acquired from Kinect</brief>
+		</Description>
+	</Reference>
+	
+	<!-- task definition -->
+	<Subtasks>
+		<Subtask name="Processing">
+			<Executor name="Exec1"  period="0.1">
+				<Component name="Source" type="CameraNUI:CameraNUI" priority="1" bump="0">
+					<param name="sync">1</param>
+					<param name="depthType">FREENECT_DEPTH_REGISTERED</param>
+				</Component>
+				
+				<Component name="Converter" type="PCL:DepthConverter" priority="2" bump="0">
+				</Component>
+			</Executor>
+		</Subtask>
+		
+		<Subtask name="Visualisation">
+			<Executor name="Exec2" period="0.1">
+				<Component name="Window" type="PCL:CloudViewer" priority="1" bump="0">
+				</Component>
+			</Executor>
+		</Subtask>
+	
+	</Subtasks>
+	
+	<!-- connections between events and handelrs -->
+	<Events>
+	</Events>
+	
+	<!-- pipes connecting datastreams -->
+	<DataStreams>
+		<Source name="Source.out_depth">
+			<sink>Converter.in_depth</sink>
+		</Source>
+		<Source name="Source.out_img">
+			<sink>Converter.in_color</sink>
+		</Source>
+		<Source name="Source.out_camera_info">
+			<sink>Converter.in_camera_info</sink>	
+		</Source>
+		<Source name="Converter.out_cloud_xyzrgb">
+			<sink>Window.in_cloud_xyzrgb</sink>		
+		</Source>
+	</DataStreams>
+</Task>
+
+
+
+

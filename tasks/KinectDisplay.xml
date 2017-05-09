@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Task>
+	<!-- reference task information -->
+	<Reference>
+		<Author>
+			<name>Maciej Stefańczyk</name>
+			<link></link>
+		</Author>
+		
+		<Description>
+			<brief>Simple Kinect viewer</brief>
+			<full>Simple Kinect viewer, shows possible depth conversions.</full>	
+		</Description>
+	</Reference>
+	
+	<!-- task definition -->
+	<Subtasks>
+		<Subtask name="Processing">
+			<Executor name="Exec1"  period="0.1">
+				<Component name="Source" type="CameraNUI:CameraNUI" priority="1" bump="5">
+					<param name="lib">freenect</param>
+					<param name="skip_stop">1</param>
+					<param name="camera_mode">rgb</param>
+					<param name="sync">1</param>
+					<param name="index">0</param>
+				</Component>
+				
+				<Component name="ProcNorm" type="CameraNUI:DepthConverter" priority="2" bump="0">
+					<param name="depth_mode">normalized</param>
+				</Component>
+				
+				<Component name="ProcDisp" type="CameraNUI:DepthConverter" priority="3" bump="0">
+					<param name="depth_mode">disparity_map</param>
+				</Component>
+				
+				<Component name="ProcRain" type="CameraNUI:DepthConverter" priority="4" bump="0">
+					<param name="depth_mode">rainbow</param>
+				</Component>
+				
+				<Component name="ProcValid" type="CameraNUI:DepthConverter" priority="5" bump="0">
+					<param name="depth_mode">valid</param>
+				</Component>
+			</Executor>
+		</Subtask>
+		
+		<Subtask name="Visualisation">
+			<Executor name="Exec2" period="0.01">
+				<Component name="Window" type="CvBasic:CvWindow" priority="1" bump="-5">
+					<param name="count">5</param>
+					<param name="title">RGB,Depth,Disparity,Rainbow,Valid</param>
+				</Component>
+			</Executor>
+		</Subtask>	
+	
+	</Subtasks>
+	
+	<!-- connections between events and handelrs -->
+	<Events>
+	</Events>
+	
+	<!-- pipes connecting datastreams -->
+	<DataStreams>
+		<Source name="Source.out_img">
+			<sink>Window.in_img0</sink>		
+		</Source>
+		<Source name="Source.out_depth">
+			<sink>ProcNorm.in_depth</sink>
+			<sink>ProcDisp.in_depth</sink>
+			<sink>ProcRain.in_depth</sink>
+			<sink>ProcValid.in_depth</sink>
+		</Source>
+		<Source name="ProcNorm.out_depth">
+			<sink>Window.in_img1</sink>		
+		</Source>
+		<Source name="ProcDisp.out_depth">
+			<sink>Window.in_img2</sink>		
+		</Source>
+		<Source name="ProcRain.out_depth">
+			<sink>Window.in_img3</sink>		
+		</Source>
+		<Source name="ProcValid.out_depth">
+			<sink>Window.in_img4</sink>		
+		</Source>
+	</DataStreams>
+</Task>
+
+
+
+

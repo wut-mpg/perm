@@ -1,0 +1,69 @@
+<Task>
+	<!-- reference task information -->
+	<Reference>
+		<Author>
+			<name>Maciej Stefańczyk</name>
+			<link></link>
+		</Author>
+	
+		<Description>
+			<brief>Simple camera viewer</brief>
+			<full>Simple camera viewer</full>
+		</Description>
+	</Reference>
+
+	<!-- task definition -->
+	<Subtasks>
+		<Subtask name="Processing">
+			<Executor name="Exec1" period="0.1">
+				
+				<Component name="Source" type="CameraNUI:CameraNUI" priority="1" bump="0">
+					<param name="lib">freenect</param>
+					<param name="skip_stop">1</param>
+					<param name="camera_mode">rgb</param>
+					<param name="sync">1</param>
+					<param name="index">0</param>
+				</Component>
+				
+				<Component name="Mask" type="CvBasic:MaskGenerator" priority="2">
+					<param name="sx">150</param>
+					<param name="sy">200</param>
+				</Component>
+				
+				<Component name="Detector" type="CvBasic:FeatureObjectDetector" priority="20">
+				</Component>
+			</Executor>
+		</Subtask>
+			
+		<Subtask name="Visualisation">
+			<Executor name="Exec2" period="0.05">
+				<Component name="Window" type="CvBasic:CvWindow" priority="1" bump="0">
+					<param name="count">2</param>
+					<param name="title">In,Out</param>
+				</Component>
+			</Executor>
+		</Subtask>
+	</Subtasks>
+	
+	<!-- pipes connecting datastreams -->
+	<DataStreams>
+		<Source name="Source.out_img">
+			<sink>Detector.in_img</sink>
+			<sink>Mask.in_img</sink>
+			<sink>Window.in_img0</sink>
+		</Source>
+		
+		<Source name="Mask.out_roi">
+			<sink>Detector.in_roi</sink>
+		</Source>
+		
+		<Source name="Mask.out_draw">
+			<sink>Window.in_draw0</sink>
+		</Source>
+		
+		<Source name="Detector.out_img">
+			<sink>Window.in_img1</sink>
+		</Source>
+	</DataStreams>
+</Task>
+

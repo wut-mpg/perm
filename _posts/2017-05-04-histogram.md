@@ -41,6 +41,9 @@ Proszę uruchomić zadanie `Hist2D.xml`
       * `Hist` - histogram dla obszaru zainteresowania
       * `Back` - obraz po wstecznej projekcji histogramu
 
+
+![]({{ site.baseurl }}/public/l4/1.jpg)
+
 ## Do zrobienia
 
 1. Proszę wybrać co najmniej 3 obiekty (bądź klasy obiektów) i zapamiętać

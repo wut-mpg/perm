@@ -1,26 +1,30 @@
 ---
 layout: task
-title: Usuwanie tła
+title: Wykrywanie ruchomych obiektów
 category: lab
 lab: 6
 task: 1
 brief: Analiza sekwencji obrazów, estymacja parametrów tła oraz segmentacja obiektów ruchomych
 ---
 
-## Struktura zadania
+## Przykładowe obrazy wynikowe
 
-Proszę uruchomić zadanie `BackgroundEstimation.xml`
+### Obraz wejściowy
 
-   * **Source** - pozyskiwanie obrazów z sensora
-   * **Sub** - usuwanie tła
-      * `method` - wybrana metoda analizy tła (MOG, MOG2, CMG)
-      * `rate` - współczynnik uczenia (0 - model tła nie jest uaktualniany, 
-                 100 - model tła jest całkowicie zależny od ostatniego obrazu)
-      * `automatic` - używaj automatycznie wyznaczonego współczynnika `rate`
-      * `reset` - wyczyść model tła 
-   * **Window** - wyświetlanie obrazu wejściowego oraz maski ruchu
+![]({{ site.baseurl }}/public/l6/1.png)
 
-## Do zrobienia
+### Maska wygenerowana przez algorytm estymacji parametrów tła
 
-1. Po uruchomieniu zadania proszę poruszać sensorem i sprawdzić jakość oraz
-   niezawodność działania metody RanSaC dla różnych płaszczyzn
+![]({{ site.baseurl }}/public/l6/2.png)
+
+### Maska po operacjach morfologicznych
+
+![]({{ site.baseurl }}/public/l6/3.png)
+
+### Wykryte kontury
+
+![]({{ site.baseurl }}/public/l6/4.png)
+
+### Oznaczone obiekty o rozmiarze przekraczającym ustalony prógpróg
+
+![]({{ site.baseurl }}/public/l6/5.png)
